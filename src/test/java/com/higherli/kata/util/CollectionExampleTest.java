@@ -7,6 +7,7 @@ public class CollectionExampleTest {
 	public static void main(String[] args) {
 //		containAllExample();
 		removeAllExample();
+		retainAllExample();
 	}
 
 	/**
@@ -39,5 +40,21 @@ public class CollectionExampleTest {
 		exampleList.add(3);
 		targetList.removeAll(exampleList);
 		System.out.println(targetList);
+	}
+	
+	public static void retainAllExample(){
+		List<Integer> targetList = new ArrayList<Integer>();
+		targetList.add(1);
+		targetList.add(1);
+		targetList.add(2);
+		targetList.add(3);
+		targetList.add(4);
+		targetList.add(5);
+		targetList.add(6);
+		List<Integer> exampleList = new ArrayList<Integer>();
+		exampleList.add(1);
+		exampleList.add(1);
+		exampleList.add(1);
+		System.out.println(targetList.retainAll(exampleList));
 	}
 }
