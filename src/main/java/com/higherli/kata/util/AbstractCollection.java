@@ -2,6 +2,7 @@ package com.higherli.kata.util;
 
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.Objects;
 
 /**
  * 这里要说一下 skeletal implementation（骨架实现）的概念。
@@ -146,5 +147,58 @@ public abstract class AbstractCollection<E> extends java.util.AbstractCollection
 			if (add(e))
 				modified = true;
 		return modified;
+	}
+
+	public boolean removeAll(Collection<?> c) {
+		Objects.requireNonNull(c);
+		boolean modified = false;
+		Iterator<E> it = iterator();
+		while (it.hasNext()) {
+			if (c.contains(it.next())) {
+				it.remove();
+				modified = true;
+			}
+		}
+		return modified;
+	}
+
+	/**
+	 * 计算该集合与集合c的交集(该方法会移除本集合中的交集部分元素)
+	 */
+	public boolean retainAll(Collection<?> c) {
+		Objects.requireNonNull(c);
+		boolean modified = false;
+		Iterator<E> it = iterator();
+		while (it.hasNext()) {
+			if (!c.contains(it.next())) {
+				it.remove();
+				modified = true;
+			}
+		}
+		return modified;
+	}
+
+	public void clear() {
+		Iterator<E> it = iterator();
+		while (it.hasNext()) {
+			it.next();
+			it.remove();
+		}
+	}
+
+	public String toString() {
+		Iterator<E> it = iterator();
+		if (!it.hasNext()) {
+			return "[]";
+		}
+		StringBuilder sb = new StringBuilder();
+		sb.append('[');
+		for (;;) {
+			E e = it.next();
+			sb.append(e == this ? "(this Collection)" : e);
+			if (!it.hasNext())
+				return sb.append(']').toString();
+			sb.append(',').append(' ');
+		}
 	}
 }
